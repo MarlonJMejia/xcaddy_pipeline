@@ -23,7 +23,7 @@ jobs:
       run: docker cp caddy-container:/usr/bin/caddy ./caddy
 
     - name: Commit and push caddy binary
-      uses: ad-m/github-push-action@v1
+      uses: ad-m/github-push-action@master
       with:
         branch: 'artifacts'  # Specify the branch where you want to push the file
         force: true  # Force push, if necessary
