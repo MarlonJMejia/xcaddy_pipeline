@@ -29,8 +29,9 @@ jobs:
       run: |
         chmod +x ./caddy
         version=$(./caddy --version)
+        echo ${version}
         declare -a array
-        IFS=' ' read -r -a array <<< "$string"
+        IFS=' ' read -r -a array <<< "$version"
         mkdir -p output
         mv ./caddy output/caddy
         echo "${array[@]}" > "output/${array[0]}"
