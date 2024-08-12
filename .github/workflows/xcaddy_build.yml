@@ -1,0 +1,32 @@
+name: Build and Extract Caddy
+
+on:
+  push:
+    branches: [ 'main', 'dev' ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Build Docker image
+      run: docker build -t custom-caddy .
+
+    - name: Create container from image
+      run: docker create --name caddy-container custom-caddy
+
+    - name: Copy caddy binary from container
+      run: docker cp caddy-container:/usr/bin/caddy ./caddy
+
+    - name: Upload caddy binary as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: caddy
+        path: ./caddy
+
+    - name: Clean up
+      run: docker rm caddy-container
