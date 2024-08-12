@@ -22,11 +22,12 @@ jobs:
     - name: Copy caddy binary from container
       run: docker cp caddy-container:/usr/bin/caddy ./caddy
 
-    - name: Upload caddy binary as artifact
-      uses: actions/upload-artifact@v3
+    - name: Commit and push caddy binary
+      uses: ad-m/github-push-action@v1
       with:
-        name: caddy
-        path: ./caddy
+        branch: 'artifacts'  # Specify the branch where you want to push the file
+        force: true  # Force push, if necessary
+        directory: '.'  # Directory to push
 
     - name: Clean up
       run: docker rm caddy-container
