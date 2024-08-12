@@ -31,8 +31,7 @@ jobs:
         mv ./caddy output/caddy
 
     - name: Commit and push caddy binary
-      uses: ad-m/github-push-action@master
+      uses: actions/upload-artifact@v4
       with:
-        branch: 'main'  # Specify the branch where you want to push the file
-        force: true
-        directory: 'output'
+        name: xcaddy_build
+        path: "output"
