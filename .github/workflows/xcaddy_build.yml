@@ -36,6 +36,12 @@ jobs:
         mv ./caddy output/caddy
         echo "${array[@]}" > "output/${array[0]}"
 
+    - name: Upload artifacts
+      uses: actions/upload-pages-artifact@v3
+      with:
+        name: xcaddy_build
+        path: 'output'
+
     - name: Create and push Caddy Binary
       uses: EndBug/add-and-commit@v9
       with:
