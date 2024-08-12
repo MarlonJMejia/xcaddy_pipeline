@@ -29,9 +29,11 @@ jobs:
       run: |
         chmod +x ./caddy
         version=$(./caddy --version)
+        declare -a array
+        IFS=' ' read -r -a array <<< "$string"
         mkdir -p output
         mv ./caddy output/caddy
-        touch output/"${version}"
+        echo "${array[@]}" > "output/${array[0]}"
 
     - name: Create and push Caddy Binary
       uses: EndBug/add-and-commit@v9
