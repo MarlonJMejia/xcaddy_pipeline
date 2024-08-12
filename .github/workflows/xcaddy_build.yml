@@ -22,12 +22,17 @@ jobs:
     - name: Copy caddy binary from container
       run: docker cp caddy-container:/usr/bin/caddy ./caddy
 
+    - name: Prepare output directory
+      run: |
+        mkdir -p output
+        mv ./caddy output/caddy
+
     - name: Commit and push caddy binary
       uses: ad-m/github-push-action@master
       with:
-        branch: 'artifacts'  # Specify the branch where you want to push the file
+        branch: 'main'  # Specify the branch where you want to push the file
         force: true  # Force push, if necessary
-        directory: '.'  # Directory to push
+        directory: 'output'  # Directory to push
 
     - name: Clean up
       run: docker rm caddy-container
