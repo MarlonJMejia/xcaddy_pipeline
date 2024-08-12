@@ -8,13 +8,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:                # Job-level permissions configuration starts here
-      contents: write           # 'write' access to repository contents
-      pull-requests: write      # 'write' access to pull requests
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Build Docker image
       run: docker build -t custom-caddy .
@@ -31,11 +31,8 @@ jobs:
         mv ./caddy output/caddy
 
     - name: Commit and push caddy binary
-      uses: ad-m/github-push-action@master
+      uses: ad-m/github-push-action@v1
       with:
         branch: 'main'  # Specify the branch where you want to push the file
-        force: true  # Force push, if necessary
-        directory: 'output'  # Directory to push
-
-    - name: Clean up
-      run: docker rm caddy-container
+        force: true
+        directory: 'output'
