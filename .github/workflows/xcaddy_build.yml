@@ -27,14 +27,11 @@ jobs:
 
     - name: Prepare output directory
       run: |
+        chmod +x ./caddy
+        version=$(./caddy --version)
         mkdir -p output
         mv ./caddy output/caddy
-
-    - name: Commit and push caddy binary
-      uses: actions/upload-artifact@v4
-      with:
-        name: xcaddy_build
-        path: "output"
+        touch output/"${version}"
 
     - name: Create and push Caddy Binary
       uses: EndBug/add-and-commit@v9
