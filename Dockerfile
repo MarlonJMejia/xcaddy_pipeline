@@ -1,6 +1,6 @@
 FROM caddy:builder AS builder
 
-RUN xcaddy build \
+RUN xcaddy build master \
     --with github.com/caddy-dns/duckdns \
     --with github.com/corazawaf/coraza-caddy \
     --with github.com/hslatman/caddy-crowdsec-bouncer
